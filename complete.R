@@ -15,9 +15,16 @@ complete <- function(directory, id=1:332){
     }
     data<-read.csv(file)
     sulf <- length(data[["sulfate"]])-sum(is.na(data["sulfate"]))
+    nit <- length(data[["nitrate"]])-sum(is.na(data["nitrate"]))
     
-    df <- data.frame(i,sulf)
-    names(df)<-c("id","nobs")
+    if(sulf<=nit){
+      df <- data.frame(i,sulf)
+      names(df)<-c("id","nobs")
+    }
+    else{
+      df <- data.frame(i,nit)
+      names(df)<-c("id","nobs")
+    }
     tot <- rbind(tot,df)
   }
   print(tot)
